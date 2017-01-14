@@ -1,8 +1,67 @@
 object Form1: TForm1
-  Left = 2400
+  Left = 516
   Height = 619
-  Top = 182
+  Top = 233
   Width = 888
-  Caption = 'Form1'
+  Caption = 'Übungen'
+  ClientHeight = 619
+  ClientWidth = 888
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poScreenCenter
   LCLVersion = '1.6.2.0'
+  object FlowPanel1: TFlowPanel
+    Left = 0
+    Height = 619
+    Top = 0
+    Width = 574
+    Align = alClient
+    ControlList = <>
+    FlowStyle = fsLeftRightTopBottom
+    TabOrder = 0
+  end
+  object Panel1: TPanel
+    Left = 574
+    Height = 619
+    Top = 0
+    Width = 314
+    Align = alRight
+    Anchors = []
+    Caption = 'Panel1'
+    ClientHeight = 619
+    ClientWidth = 314
+    TabOrder = 1
+    object lbLog: TListBox
+      Left = 1
+      Height = 521
+      Top = 1
+      Width = 312
+      Align = alTop
+      Items.Strings = (
+        'Ausgabe:'
+      )
+      ItemHeight = 15
+      TabOrder = 0
+    end
+    object bTestAll: TButton
+      Left = 14
+      Height = 52
+      Top = 540
+      Width = 123
+      Align = alClient
+      Caption = 'Teste alle'
+      OnClick = bTestAllClick
+      TabOrder = 1
+    end
+    object bClear: TButton
+      Left = 255
+      Height = 25
+      Top = 548
+      Width = 75
+      Align = alRight
+      Caption = 'Löschen'
+      OnClick = bClearClick
+      TabOrder = 2
+    end
+  end
 end
