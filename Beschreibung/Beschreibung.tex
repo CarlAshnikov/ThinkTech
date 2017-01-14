@@ -1,0 +1,71 @@
+\documentclass{scrartcl}
+
+\usepackage{lmodern}
+\usepackage[ngerman]{babel}
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+\usepackage{graphicx}
+\usepackage{picinpar}
+\usepackage[colorlinks=true,linkcolor=black]{hyperref}
+
+%Source Code
+\usepackage{color,listings}                %bindet das Paket Listings ein
+\definecolor{comment}{rgb}{.15,.4,.15}     % hellgruen
+\definecolor{keywd1}{rgb}{.15,.15,.6}      % dunkelblau
+\definecolor{keywd2}{rgb}{.35,.5,.55}      % hellblau
+\definecolor{string}{rgb}{.5,.15,.15}      % dunkelrot
+
+
+
+
+%\usepackage{caption}
+%\DeclareCaptionType{mycapequ}[][List of equations]
+%\captionsetup[mycapequ]{labelformat=empty}
+
+\begin{document}
+\section{Funktionen}
+
+\subsection{Bin ich drin?}
+Prüfe ob ein Wert im Intervall liegt. Benötigte Operatoren für Zahlen $<$, $>$ und $=$. Außerdem and und or für die Verknüpfung von boolschen bzw. Wahrheitswerten und if für die Auswertung.
+
+\subsection{Berechne die Summe aller Zahlen von 1 bis n}
+Die Umsetzung sollte mit einer Schleife passieren. Welche Möglichkeiten fallen dir noch ein?
+
+\subsection{!murehtrhekreV: Gibt den Text rückwärts aus!}
+Als Übergabewert gibt es einen Text als string. Von diesem kann man mit Hilfe der funktion Length() die Länge bestimmen. Außerdem kann man mit dem Operator $[i]$ auf eine Buchstaben im Text an der Stelle i zugreifen. Beachte, dass strings bei Index 1 beginnen nicht bei 0 wie Arrays. Weiterhin wird der Operator $+$ benötigt um Texte zusammen zu setzen. 
+
+\subsection{Zaehle alle Vokale!}
+Prüfe jeden Buchstaben im Text ob es ein Vokal ist und gib deren Anzahl zurück. Beachte Groß und Kleinbuchstaben.
+
+\subsection{Buchstabiere das Wort!}
+Wandle das übergebene Wort in eine durch Leerzeichen getrennte Aussprache seiner Buchstaben um. Aus dem Text "`abcdjky"' wird zum Beispiel "`a be ce jot ka ypsilon"'.
+
+\subsection{Sage die Ziffern!}
+Wandle die übergebene Zahl in den entsprechenden Text bei der Aufzählung der Ziffern getrennt durch Leerzeichen um. Hilfreiche Operatoren sind div und mod sie geben jeweils den ganzzahligen Teil einer Division (div) und den Rest (mod) zurück. Aus 1234 wird z.B. "`eins zwei drei vier"'. Welches ist die beste Reihenfolge um die Zahl auseinander zu nehmen?
+
+\subsection{Berechne die Summe!}
+Eine Folge von Zahlen wird als Leerzeichen getrennter Text übergeben. Trenne den Text und addiere die entstehenden Zahlen nach ihrer Umwandlung. Überlege dir zuerst ein möglichst einfaches Vorgehen wie du den Text untersuchst. Nützlich sind z.B. die Funktionen Pos und PosEx um einen bestimmten Text in einem Wert in einem Text zu finden.
+
+\subsection{Welche Zahl in der Folge fehlt?}
+Als Übergabewert gibt es eine Folge von Zahlen in Form eines Arrays. Die Zahlen sind sortiert und sollten sich immer um 1 unterscheiden. Gib die fehlende Zahl zurück falls in der Folge ein Sprung größer als 1 Auftritt. Gibt es Keinen, gib eine 0 zurück.
+
+\subsection{Begrüße mich!}
+Als Übergabewerte gibt es eine Tageszeit in Form eines Aufzählungstyps Tageszeit und einen Namen. Je nach Tageszeit soll eine andere Begrüßung als Rückgabewert entstehen. 
+\begin{tabular}{lcr}
+  morgens & Guten Morgen \\
+  mittags & Mahlzeit \\
+	abends & Guten Abend \\
+	nachts & Gute Nacht \\
+\end{tabular}
+
+Z.B. wird aus morgens und Bernd "`Guten Morgen, Bernd!"'. Benutze eine case Anweisung zur Unterscheidung der Tageszeit.
+
+\subsection{Berechne die Hypotenuse!}
+Als Übergabewerte gibt es die Länge der beiden Seite am rechten Winkel eines Dreieck. Welche Funktionen benötigt man für Wurzeln und Quadrate von Zahlen?
+
+\subsection{Sag's mir später.}
+Gib den Text zurück der beim vorherigen Aufruf der Funktion übergeben wurde. Gib beim ersten Aufruf einen leeren string zurück. Was ist die Schwierigkeit hieran?
+
+\end{document}
