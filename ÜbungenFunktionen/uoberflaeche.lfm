@@ -33,7 +33,7 @@ object Form1: TForm1
     TabOrder = 1
     object lbLog: TListBox
       Left = 1
-      Height = 521
+      Height = 473
       Top = 1
       Width = 312
       Align = alTop
@@ -44,24 +44,34 @@ object Form1: TForm1
       TabOrder = 0
     end
     object bTestAll: TButton
-      Left = 14
-      Height = 52
-      Top = 540
-      Width = 123
+      Left = 1
+      Height = 94
+      Top = 474
+      Width = 191
       Align = alClient
       Caption = 'Teste alle'
       OnClick = bTestAllClick
       TabOrder = 1
     end
     object bClear: TButton
-      Left = 255
-      Height = 25
-      Top = 548
-      Width = 75
+      Left = 192
+      Height = 94
+      Top = 474
+      Width = 121
       Align = alRight
       Caption = 'Löschen'
       OnClick = bClearClick
       TabOrder = 2
+    end
+    object bIWantWhattesting: TButton
+      Left = 1
+      Height = 50
+      Top = 568
+      Width = 312
+      Align = alBottom
+      Caption = 'Ich will was testen!'
+      OnClick = bIWantWhattestingClick
+      TabOrder = 3
     end
   end
 end

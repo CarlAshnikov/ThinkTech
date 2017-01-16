@@ -35,10 +35,12 @@ type
   TForm1 = class(TForm)
     bTestAll: TButton;
     bClear: TButton;
+    bIWantWhattesting: TButton;
     FlowPanel1: TFlowPanel;
     lbLog: TListBox;
     Panel1: TPanel;
     procedure bClearClick(Sender: TObject);
+    procedure bIWantWhattestingClick(Sender: TObject);
     procedure bTestAllClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -107,6 +109,11 @@ procedure TForm1.bClearClick(Sender: TObject);
 begin
   lbLog.Items.Clear;
   lbLog.Items.Add('Ausgabe:');
+end;
+
+procedure TForm1.bIWantWhattestingClick(Sender: TObject);
+begin
+
 end;
 
 procedure TForm1.BuildPanels();
