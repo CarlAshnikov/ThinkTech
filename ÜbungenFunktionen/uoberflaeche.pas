@@ -294,7 +294,7 @@ begin
   end;
 
   Log('Teste Skrzlbt');
-  if not fUebungen.ZaehleDieVokale('Skrzlbt') <> 0 then
+  if fUebungen.ZaehleDieVokale('Skrzlbt') <> 0 then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
@@ -315,21 +315,21 @@ begin
   result := false;
 
   Log('Teste abcdefghijklmnopqrstuvwxyz');
-  if not (fUebungen.BuchstabiereDasWort('abc') = 'a be ce de e ef ge ha i jot ka el em en o pe qu er es te u vau we ix ypsilon zet') then
+  if not (fUebungen.BuchstabiereDasWort('abcdefghijklmnopqrstuvwxyz') = 'a be ce de e ef ge ha i jot ka el em en o pe qu er es te u vau we ix ypsilon zet') then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
   end;
 
   Log('Teste Hippopotamus');
-  if not (fUebungen.BuchstabiereDasWort('Hippopotamus') = 'Ha i pe pe o te o te a em u es') then
+  if not (fUebungen.BuchstabiereDasWort('Hippopotamus') = 'Ha i pe pe o pe o te a em u es') then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
   end;
 
   Log('Teste Dampfschifffahrtkapitaen');
-  if not (fUebungen.BuchstabiereDasWort('Hippopotamus') = 'De a em pe ef es ce ha i ef ef ef a ha er te ka a pe i te a e en') then
+  if not (fUebungen.BuchstabiereDasWort('Dampfschifffahrtkapitaen') = 'De a em pe ef es ce ha i ef ef ef a ha er te ka a pe i te a e en') then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
