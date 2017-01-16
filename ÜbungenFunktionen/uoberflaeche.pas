@@ -267,7 +267,7 @@ begin
   result := false;
 
   Log('Teste Hallo Welt');
-  if not (fUebungen.murehtrhekreV('Hallo') = 'tleW ollaH') then
+  if not (fUebungen.murehtrhekreV('Hallo Welt') = 'tleW ollaH') then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
