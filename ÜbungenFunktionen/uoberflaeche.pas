@@ -361,7 +361,7 @@ begin
   result := false;
 
   Log('Teste "1 2 3 4"');
-  if fUebungen.BerechneDieSumme('1 2 3 4') = 10 then
+  if fUebungen.BerechneDieSumme('1 2 3 4') <> 10 then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
@@ -456,14 +456,14 @@ begin
   result := false;
 
   Log('Teste 1 2');
-  if not (round(fUebungen.Pythagokrass(1, 2) * 1000) = 2236) then
+  if not (trunc(fUebungen.Pythagokrass(1, 2) * 1000) = 2236) then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
   end;
 
   Log('Teste 3 7');
-  if not (round(fUebungen.Pythagokrass(3, 7) * 1000) = 7615) then
+  if not (trunc(fUebungen.Pythagokrass(3, 7) * 1000) = 7615) then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
@@ -491,7 +491,7 @@ begin
   end;
 
   Log('Teste Auch egal');
-  if not (fUebungen.SagsMirSpaeter('Auch egal') = 'Teste Was geht ab?') then
+  if not (fUebungen.SagsMirSpaeter('Auch egal') = 'Was geht ab?') then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
