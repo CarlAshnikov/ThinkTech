@@ -10,6 +10,9 @@ uses
 
 type
   TagesZeiten = (morgens, mittags, abends, nachts);
+  TIntArray = array of integer;
+
+  { TUebungen }
 
   TUebungen = class(TObject)
   public
@@ -24,6 +27,7 @@ type
     function BegruesseMich(EineTageszeit: TagesZeiten; Name: string): string;
     function Pythagokrass(A, B: double): double;
     function SagsMirSpaeter(EinText: string): string;
+    function SortiereMeinArray(Zahlen: TIntArray): TIntArray;
   end;
 implementation
 
@@ -91,6 +95,12 @@ end;
 function TUebungen.SagsMirSpaeter(EinText: string): string;
 begin
   result := EinText;
+end;
+
+//Aufgabe 12 Sortieren
+function TUebungen.SortiereMeinArray(Zahlen: TIntArray): TIntArray;
+begin
+  result := Zahlen;
 end;
 
 end.

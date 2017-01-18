@@ -53,6 +53,7 @@ type
     procedure ButtonClicked(Sender: Tobject);
     procedure CheckAllTests;
     procedure ExecuteTest(const ANumber: integer);
+    function IstArraySortiert(AArray: array of integer): Boolean;
     function Test1: Boolean;
     function Test2: Boolean;
     function Test3: Boolean;
@@ -64,6 +65,7 @@ type
     function Test9: Boolean;
     function Test10: Boolean;
     function Test11: Boolean;
+    function Test12: Boolean;
     procedure Log(AText: string);
   public
 
@@ -167,7 +169,7 @@ begin
   CheckAllTests();
 end;
 
-procedure Tform1.ExecuteTest(Const ANumber: integer);
+procedure TForm1.ExecuteTest(const ANumber: integer);
 var
    vTest: TTests;
 begin
@@ -209,6 +211,7 @@ begin
   fTests.Add(TTests.Create(@Test9, 'Aufgabe 9 Begrüße mich!'));
   fTests.Add(TTests.Create(@Test10, 'Aufgabe 10 Berechne die Hypotenuse'));
   fTests.Add(TTests.Create(@Test11, 'Aufgabe 11 Sags mir später.'));
+  fTests.Add(TTests.Create(@Test12, 'Aufgabe 12 Sortiere das Array.'));
 end;
 
 function TForm1.Test1: Boolean;
@@ -497,6 +500,46 @@ begin
     Exit();
   end;
 
+  result := true;
+end;
+
+function TForm1.IstArraySortiert(AArray: array of integer): Boolean;
+var
+  i, vLast: integer;
+begin
+  vLast := 0;
+  result := true;
+  for i := 0 to Length(AArray) - 1 do
+  begin
+    if AArray[i] <= vLast then
+      Exit(false);
+    vLast := AArray[i];
+  end;
+end;
+
+function TForm1.Test12: Boolean;
+const
+  vTestArr1: array[0..2] of Integer = (70, 12, 45);
+  vTestArr2: array[0..6] of Integer = (1000, 22, 35, 422, 577, 6456, 237);
+var
+  vRes: array of integer;
+begin
+  result := false;
+  Log('Teste 70, 12, 45');
+  vRes := fUebungen.SortiereMeinArray(vTestArr1);
+  if not IstArraySortiert(vRes) then
+  begin
+    Log('Ergebnis nicht korrekt');
+    Exit();
+  end;
+
+  Log('Teste 1000, 22, 35, 422, 577, 6456, 237');
+  vRes := fUebungen.SortiereMeinArray(vTestArr2);
+  if not IstArraySortiert(vRes) then
+  begin
+    Log('Ergebnis nicht korrekt');
+    Exit();
+  end;
   result := true;
 end;
 
