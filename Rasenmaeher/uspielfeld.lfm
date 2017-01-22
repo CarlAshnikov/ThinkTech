@@ -35980,9 +35980,9 @@ object Form1: TForm1
     left = 236
     top = 322
   end
-  object ActionList1: TActionList
-    left = 647
-    top = 214
+  object alMain: TActionList
+    left = 496
+    top = 322
     object actPlay: TAction
     end
   end

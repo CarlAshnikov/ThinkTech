@@ -22,7 +22,7 @@ type
 
   TForm1 = class(TForm)
     actPlay: TAction;
-    ActionList1: TActionList;
+    alMain: TActionList;
     BitBtn1: TBitBtn;
     iRasenLang: TImage;
     iRasenKurz: TImage;
