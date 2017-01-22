@@ -5,21 +5,46 @@ unit uSpielfeld;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls;
+  Classes,
+  SysUtils,
+  FileUtil,
+  Forms,
+  Controls,
+  Graphics,
+  Dialogs,
+  ExtCtrls, Buttons, ActnList,
+  uMowboter,
+  uAI;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    Image1: TImage;
-    Image2: TImage;
-    PaintBox1: TPaintBox;
-    Timer1: TTimer;
-    procedure PaintBox1Paint(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
+    actPlay: TAction;
+    ActionList1: TActionList;
+    BitBtn1: TBitBtn;
+    iRasenLang: TImage;
+    iRasenKurz: TImage;
+    iRoboterLinks: TImage;
+    iRoboterHoch: TImage;
+    iRoboterRechts: TImage;
+    iRoboterRunter: TImage;
+    pRight: TPanel;
+    pControl: TPanel;
+    pbSpielFeld: TPaintBox;
+    tSpielRunde: TTimer;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure pbSpielFeldPaint(Sender: TObject);
+    procedure tSpielRundeTimer(Sender: TObject);
   private
-    fMowBoterPosX: integer;
+    fRoboter: TRoboter;
+    fAI: TRoboterAI;
+    fFieldWidth, fFieldHeight: integer;
+    function GetFieldAtPosition(X, Y: integer): TFeldTyp;
+    function GetPicForRobot(const ARobot: TRoboter): TBitmap;
+    procedure PruefeSpielregeln;
   public
     { public declarations }
   end;
@@ -33,30 +58,76 @@ implementation
 
 { TForm1 }
 
-procedure TForm1.PaintBox1Paint(Sender: TObject);
+const
+  cFieldSize = 50;
+
+procedure TForm1.pbSpielFeldPaint(Sender: TObject);
 var
   vRec: TRect;
   X, Y: integer;
 begin
-  for X := 0 to 7 do
-    for Y := 0 to 5 do
+  for X := 0 to fFieldWidth - 1 do
+    for Y := 0 to fFieldHeight - 1 do
     begin
-      vRec.Left := X * 50;
-      vRec.Top := Y * 50;
-      vRec.Right := vRec.Left + 50;
-      vRec.Bottom := vRec.Top + 50;
-      PaintBox1.Canvas.StretchDraw(vRec, Image1.Picture.Bitmap);
-      if (x = fMowBoterPosX) and (y = 0) then
-        PaintBox1.Canvas.StretchDraw(vRec, Image2.Picture.Bitmap);
+      vRec.Left := X * cFieldSize;
+      vRec.Top := Y * cFieldSize;
+      vRec.Right := vRec.Left + cFieldSize;
+      vRec.Bottom := vRec.Top + cFieldSize;
+      pbSpielFeld.Canvas.StretchDraw(vRec, iRasenLang.Picture.Bitmap);
+      if (x = fRoboter.X) and (y = fRoboter.Y) then
+        pbSpielFeld.Canvas.StretchDraw(vRec, GetPicForRobot(fRoboter));
     end;
 end;
 
-procedure TForm1.Timer1Timer(Sender: TObject);
+function TForm1.GetPicForRobot(const ARobot: TRoboter): TBitmap;
 begin
-  inc(fMowBoterPosX);
-  fMowBoterPosX := fMowBoterPosX mod 8;
-  PaintBox1.Invalidate;
+  case ARobot.Richtung of
+    Hoch:
+      result := iRoboterHoch.Picture.Bitmap;
+    Runter:
+      result := iRoboterRunter.Picture.Bitmap;
+    Links:
+      result := iRoboterLinks.Picture.Bitmap;
+    Rechts:
+      result := iRoboterRechts.Picture.Bitmap;
+  end;
 end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+  fRoboter := TRoboter.Create(@GetFieldAtPosition, 1, 1);
+  fAI := TRoboterAI.Create();
+  fFieldWidth := 8;
+  fFieldHeight := 6;
+end;
+
+procedure TForm1.FormDestroy(Sender: TObject);
+begin
+  fRoboter.Free;
+  fAI.Free;
+end;
+
+procedure TForm1.tSpielRundeTimer(Sender: TObject);
+begin
+  fAI.OnNextStep(fRoboter);
+  fRoboter.FahreEinenSchritt();
+  PruefeSpielregeln();
+  pbSpielFeld.Invalidate;
+end;
+
+procedure TForm1.PruefeSpielregeln();
+begin
+
+end;
+
+function TForm1.GetFieldAtPosition(X, Y: integer): TFeldTyp;
+begin
+  if (X < 0) or (X > fFieldWidth - 1) or (Y < 0) or (Y > fFieldHeight - 1) then
+    result := TFeldTyp.Begrenzung
+  else
+    result := TFeldTyp.RasenLang;
+end;
+
 
 end.
 
