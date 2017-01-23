@@ -360,18 +360,21 @@ begin
 end;
 
 function TForm1.Test7: Boolean;
+const
+  vTestArr1: array[0..3] of Integer = (1, 2, 3, 4);
+  vTestArr2: array[0..3] of Integer = (12, 3456, 1, 9999999);
 begin
   result := false;
 
   Log('Teste "1 2 3 4"');
-  if fUebungen.BerechneDieSumme('1 2 3 4') <> 10 then
+  if fUebungen.BerechneDieSumme(vTestArr1) <> 10 then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();
   end;
 
   Log('Teste "12 3456 1 9999999"');
-  if fUebungen.BerechneDieSumme('12 3456 1 9999999') <> 10003468 then
+  if fUebungen.BerechneDieSumme(vTestArr2) <> 10003468 then
   begin
     Log('Ergebnis nicht korrekt');
     Exit();

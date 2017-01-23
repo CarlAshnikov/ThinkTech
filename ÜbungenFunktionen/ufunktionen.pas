@@ -22,7 +22,7 @@ type
     function ZaehleDieVokale(Wort: string): integer;
     function BuchstabiereDasWort(DasWort: string): string;
     function SageDieZiffern(EineZahl: integer): string;
-    function BerechneDieSumme(DieZahlen: string): integer;
+    function BerechneDieSumme(DieZahlen: array of integer): integer;
     function WelcheZahlFehlt(Zahlen: array of integer): integer;
     function BegruesseMich(EineTageszeit: TagesZeiten; Name: string): string;
     function Pythagokrass(A, B: double): double;
@@ -68,7 +68,7 @@ begin
 end;
 
 //Aufgabe 7 Berechne die Summe!
-function TUebungen.BerechneDieSumme(DieZahlen: string): integer;
+function TUebungen.BerechneDieSumme(DieZahlen: array of integer): integer;
 begin
   result := 0;
 end;
