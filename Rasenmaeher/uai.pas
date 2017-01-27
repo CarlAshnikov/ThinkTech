@@ -23,7 +23,8 @@ implementation
 
 procedure TRoboterAI.OnNextStep(ARobot: TRoboter);
 begin
-  if ARobot.BenutzeSensor = Begrenzung then
+  Arobot.MotorAn := true;
+  if ARobot.BenutzeSensor in [Begrenzung, RasenGemaeht, LadeStation]then
     Case ARobot.Richtung of
       Hoch:
         ARobot.Richtung := Links;
