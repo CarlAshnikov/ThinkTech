@@ -176,6 +176,7 @@ begin
   if assigned(fRoboter) then
     fRoboter.Free;
   fRoboter := TRoboter.Create(@GetFieldAtPosition, 0, 0);
+  fRoboter.Richtung := Runter;
   Setlength(fFields, Width, Height);
   fFields[0,0] := Ladestation;
 end;
@@ -187,12 +188,8 @@ begin
     Clear;
     Add('Roboterinfo:');
     Add('Richtung: ' + GetEnumName(TypeInfo(fRoboter.Richtung),Ord(fRoboter.Richtung)));
-    if fRoboter.MotorAn then
-      Add('Motor an')
-    else
-      Add('Motor aus');
-
-    Add('Koordinate X: ' + intToStr(fRoboter.X) + ' Y: ' + IntToStr(fRoboter.Y));
+    if fRoboter.MotorAn then Add('Motor an') else Add('Motor aus');
+    Add('Koordinate X: ' + IntToStr(fRoboter.X) + ' Y: ' + IntToStr(fRoboter.Y));
     Add('Energie: ' + IntToStr(fRoboter.Energie));
     Add('Sensor sieht: ' + GetEnumName(TypeInfo(fRoboter.BenutzeSensor),Ord(fRoboter.BenutzeSensor)))
   end;
@@ -234,14 +231,7 @@ begin
     exit();
   end;
 
-  if (fRoboter.X < 0) or (fRoboter.X > fFieldWidth - 1) or
-     (fRoboter.Y < 0) or (fRoboter.Y > fFieldHeight - 1) then
-  begin
-    DoGameOver('Außerhalb des Spielfeldes');
-    Exit();
-  end;
-
-  Case fFields[fRoboter.X, fRoboter.Y] of
+  Case GetFieldAtPosition(fRoboter.X, fRoboter.Y) of
     RasenLang:
       begin
         if fRoboter.MotorAn then
@@ -252,6 +242,8 @@ begin
         if fRoboter.MotorAn then
           DoGameOver('Kurzer Rasen gemaeht');
       end;
+    Begrenzung:
+      DoGameOver('Außerhalb des Spielfeldes');
   end;
 end;
 

@@ -3,10 +3,11 @@ object frmMain: TfrmMain
   Height = 525
   Top = 286
   Width = 837
-  BorderStyle = bsSingle
   Caption = 'MyMowboter'
   ClientHeight = 525
   ClientWidth = 837
+  Constraints.MinHeight = 500
+  Constraints.MinWidth = 800
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poScreenCenter
@@ -35961,25 +35962,25 @@ object frmMain: TfrmMain
       Left = 1
       Height = 73
       Top = 1
-      Width = 75
+      Width = 100
       Action = actPlay
       Align = alLeft
       TabOrder = 0
     end
     object Button2: TButton
-      Left = 76
+      Left = 101
       Height = 73
       Top = 1
-      Width = 75
+      Width = 100
       Action = actPause
       Align = alLeft
       TabOrder = 1
     end
     object Button3: TButton
-      Left = 151
+      Left = 201
       Height = 73
       Top = 1
-      Width = 75
+      Width = 100
       Action = actStep
       Align = alLeft
       TabOrder = 2
