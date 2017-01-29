@@ -1,10 +1,10 @@
-object Form1: TForm1
-  Left = 2467
+object frmMain: TfrmMain
+  Left = 362
   Height = 525
-  Top = 247
+  Top = 286
   Width = 837
   BorderStyle = bsSingle
-  Caption = 'Form1'
+  Caption = 'MyMowboter'
   ClientHeight = 525
   ClientWidth = 837
   OnCreate = FormCreate
@@ -5227,9 +5227,10 @@ object Form1: TForm1
   end
   object pbSpielFeld: TPaintBox
     Left = 0
-    Height = 300
+    Height = 450
     Top = 0
-    Width = 400
+    Width = 667
+    Align = alClient
     OnPaint = pbSpielFeldPaint
   end
   object iRoboterLinks: TImage
@@ -35949,30 +35950,59 @@ object Form1: TForm1
   end
   object pControl: TPanel
     Left = 0
-    Height = 50
-    Top = 475
+    Height = 75
+    Top = 450
     Width = 837
     Align = alBottom
-    ClientHeight = 50
+    ClientHeight = 75
     ClientWidth = 837
     TabOrder = 0
-    object BitBtn1: TBitBtn
+    object Button1: TButton
       Left = 1
-      Height = 48
+      Height = 73
       Top = 1
       Width = 75
+      Action = actPlay
       Align = alLeft
-      Caption = 'BitBtn1'
       TabOrder = 0
+    end
+    object Button2: TButton
+      Left = 76
+      Height = 73
+      Top = 1
+      Width = 75
+      Action = actPause
+      Align = alLeft
+      TabOrder = 1
+    end
+    object Button3: TButton
+      Left = 151
+      Height = 73
+      Top = 1
+      Width = 75
+      Action = actStep
+      Align = alLeft
+      TabOrder = 2
     end
   end
   object pRight: TPanel
     Left = 667
-    Height = 475
+    Height = 450
     Top = 0
     Width = 170
     Align = alRight
+    ClientHeight = 450
+    ClientWidth = 170
     TabOrder = 1
+    object lbRobotInfo: TListBox
+      Left = 1
+      Height = 448
+      Top = 1
+      Width = 168
+      Align = alClient
+      ItemHeight = 0
+      TabOrder = 0
+    end
   end
   object iLadeStation: TImage
     Left = 260
@@ -37461,7 +37491,8 @@ object Form1: TForm1
     Visible = False
   end
   object tSpielRunde: TTimer
-    Interval = 400
+    Enabled = False
+    Interval = 500
     OnTimer = tSpielRundeTimer
     left = 236
     top = 322
@@ -37470,6 +37501,21 @@ object Form1: TForm1
     left = 496
     top = 322
     object actPlay: TAction
+      Caption = 'Play'
+      ImageIndex = 1
+      OnExecute = actPlayExecute
+      OnUpdate = actPlayUpdate
+    end
+    object actStep: TAction
+      Caption = 'Step'
+      ImageIndex = 2
+      OnExecute = actStepExecute
+      OnUpdate = actStepUpdate
+    end
+    object actPause: TAction
+      Caption = 'Stop'
+      OnExecute = actPauseExecute
+      OnUpdate = actPauseUpdate
     end
   end
 end

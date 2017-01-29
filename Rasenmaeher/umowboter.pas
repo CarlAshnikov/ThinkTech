@@ -7,11 +7,15 @@ interface
 uses
   Classes, SysUtils;
 
+const
+  DirectionNames: array[0..3] of String = ('Hoch', 'Runter', 'Links', 'Rechts');
+
 type
 
   TRichtung = (Hoch, Runter, Links, Rechts);
   TFeldTyp = (RasenLang, RasenGemaeht, Begrenzung, Ladestation);
   TFieldGetter = function (X, Y: integer): TFeldTyp of object;
+
   { TRoboter }
 
   TRoboter = class(TObject)
@@ -61,6 +65,7 @@ begin
   fFieldGetter := AFieldGetter;
   fX := StartX;
   fY := StartY;
+  fEnergie := 100;
 end;
 
 function TRoboter.BenutzeSensor: TFeldTyp;

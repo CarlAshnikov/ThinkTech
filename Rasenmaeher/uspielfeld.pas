@@ -12,18 +12,22 @@ uses
   Controls,
   Graphics,
   Dialogs,
-  ExtCtrls, Buttons, ActnList,
+  ExtCtrls, Buttons, ActnList, StdCtrls,
   uMowboter,
   uAI;
 
 type
 
-  { TForm1 }
+  { TfrmMain }
 
-  TForm1 = class(TForm)
+  TfrmMain = class(TForm)
+    actPause: TAction;
+    actStep: TAction;
     actPlay: TAction;
     alMain: TActionList;
-    BitBtn1: TBitBtn;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
     iLadeStation: TImage;
     iRasenLang: TImage;
     iRasenKurz: TImage;
@@ -31,10 +35,17 @@ type
     iRoboterHoch: TImage;
     iRoboterRechts: TImage;
     iRoboterRunter: TImage;
+    lbRobotInfo: TListBox;
     pRight: TPanel;
     pControl: TPanel;
     pbSpielFeld: TPaintBox;
     tSpielRunde: TTimer;
+    procedure actPauseExecute(Sender: TObject);
+    procedure actPauseUpdate(Sender: TObject);
+    procedure actPlayExecute(Sender: TObject);
+    procedure actPlayUpdate(Sender: TObject);
+    procedure actStepExecute(Sender: TObject);
+    procedure actStepUpdate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure pbSpielFeldPaint(Sender: TObject);
@@ -52,34 +63,40 @@ type
     function GetPicForRobot(const ARobot: TRoboter): TBitmap;
     procedure PruefeSpielregeln;
     procedure ResetField;
+    procedure UpdateInfo();
   public
     { public declarations }
   end;
 
 var
-  Form1: TForm1;
+  frmMain: TfrmMain;
 
 implementation
 
+uses
+
+  typinfo;
+
 {$R *.lfm}
 
-{ TForm1 }
+{ TfrmMain }
 
-const
-  cFieldSize = 50;
-
-procedure TForm1.pbSpielFeldPaint(Sender: TObject);
+procedure TfrmMain.pbSpielFeldPaint(Sender: TObject);
 var
   vRec: TRect;
   X, Y: integer;
+  vFieldWidth, vFieldHeight: integer;
 begin
+  vFieldWidth := round(pbSpielFeld.Width / fFieldWidth);
+  vFieldHeight := round(pbSpielFeld.Height / fFieldHeight);
+
   for X := 0 to fFieldWidth - 1 do
     for Y := 0 to fFieldHeight - 1 do
     begin
-      vRec.Left := X * cFieldSize;
-      vRec.Top := Y * cFieldSize;
-      vRec.Right := vRec.Left + cFieldSize;
-      vRec.Bottom := vRec.Top + cFieldSize;
+      vRec.Left := X * vFieldWidth;
+      vRec.Top := Y * vFieldHeight;
+      vRec.Right := vRec.Left + vFieldWidth;
+      vRec.Bottom := vRec.Top + vFieldHeight;
       pbSpielFeld.Canvas.StretchDraw(vRec, GetPicForField(fFields[x,y]));
 
       if (x = fRoboter.X) and (y = fRoboter.Y) then
@@ -87,7 +104,7 @@ begin
     end;
 end;
 
-function TForm1.GetPicForField(const AFieldType: TFeldTyp): TBitmap;
+function TfrmMain.GetPicForField(const AFieldType: TFeldTyp): TBitmap;
 begin
   case AFieldType of
     RasenLang:
@@ -101,7 +118,7 @@ begin
   end;
 end;
 
-function TForm1.GetPicForRobot(const ARobot: TRoboter): TBitmap;
+function TfrmMain.GetPicForRobot(const ARobot: TRoboter): TBitmap;
 begin
   case ARobot.Richtung of
     Hoch:
@@ -115,36 +132,88 @@ begin
   end;
 end;
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   fAI := TRoboterAI.Create();
   fFieldWidth := 8;
   fFieldHeight := 6;
-  fRoboter := TRoboter.Create(@GetFieldAtPosition, 1, 0);
   ResetField();
+  UpdateInfo();
 end;
 
-procedure TForm1.ResetField();
+procedure TfrmMain.actPlayExecute(Sender: TObject);
 begin
+  tSpielRunde.Enabled := true;
+end;
+
+procedure TfrmMain.actPauseExecute(Sender: TObject);
+begin
+  tSpielRunde.Enabled := false;
+end;
+
+procedure TfrmMain.actPauseUpdate(Sender: TObject);
+begin
+  actPause.Enabled := tSpielRunde.Enabled;
+end;
+
+procedure TfrmMain.actPlayUpdate(Sender: TObject);
+begin
+  actPlay.Enabled := not tSpielRunde.Enabled;
+end;
+
+procedure TfrmMain.actStepExecute(Sender: TObject);
+begin
+  tSpielRundeTimer(nil);
+end;
+
+procedure TfrmMain.actStepUpdate(Sender: TObject);
+begin
+  actStep.Enabled := not tSpielRunde.Enabled;
+end;
+
+procedure TfrmMain.ResetField();
+begin
+  if assigned(fRoboter) then
+    fRoboter.Free;
+  fRoboter := TRoboter.Create(@GetFieldAtPosition, 0, 0);
   Setlength(fFields, Width, Height);
   fFields[0,0] := Ladestation;
 end;
 
-procedure TForm1.FormDestroy(Sender: TObject);
+procedure TfrmMain.UpdateInfo;
+begin
+  with lbRobotInfo.Items do
+  begin
+    Clear;
+    Add('Roboterinfo:');
+    Add('Richtung: ' + GetEnumName(TypeInfo(fRoboter.Richtung),Ord(fRoboter.Richtung)));
+    if fRoboter.MotorAn then
+      Add('Motor an')
+    else
+      Add('Motor aus');
+
+    Add('Koordinate X: ' + intToStr(fRoboter.X) + ' Y: ' + IntToStr(fRoboter.Y));
+    Add('Energie: ' + IntToStr(fRoboter.Energie));
+    Add('Sensor sieht: ' + GetEnumName(TypeInfo(fRoboter.BenutzeSensor),Ord(fRoboter.BenutzeSensor)))
+  end;
+end;
+
+procedure TfrmMain.FormDestroy(Sender: TObject);
 begin
   fRoboter.Free;
   fAI.Free;
 end;
 
-procedure TForm1.tSpielRundeTimer(Sender: TObject);
+procedure TfrmMain.tSpielRundeTimer(Sender: TObject);
 begin
   fAI.OnNextStep(fRoboter);
   fRoboter.FahreEinenSchritt();
   PruefeSpielregeln();
   pbSpielFeld.Invalidate;
+  UpdateInfo();
 end;
 
-function TForm1.AllFieldsAreMowed(): Boolean;
+function TfrmMain.AllFieldsAreMowed(): Boolean;
 var
  X, Y: integer;
 begin
@@ -157,13 +226,21 @@ begin
     end;
 end;
 
-procedure TForm1.PruefeSpielregeln();
+procedure TfrmMain.PruefeSpielregeln();
 begin
   if AllFieldsAreMowed() then
   begin
     DoGameWon();
     exit();
   end;
+
+  if (fRoboter.X < 0) or (fRoboter.X > fFieldWidth - 1) or
+     (fRoboter.Y < 0) or (fRoboter.Y > fFieldHeight - 1) then
+  begin
+    DoGameOver('Außerhalb des Spielfeldes');
+    Exit();
+  end;
+
   Case fFields[fRoboter.X, fRoboter.Y] of
     RasenLang:
       begin
@@ -178,13 +255,13 @@ begin
   end;
 end;
 
-procedure TForm1.DoGameWon();
+procedure TfrmMain.DoGameWon();
 begin
   tSpielRunde.Enabled := false;
   ShowMessage('Runde Gewonnen!');
 end;
 
-procedure TForm1.DoGameOver(const AReason: string);
+procedure TfrmMain.DoGameOver(const AReason: string);
 begin
   tSpielRunde.Enabled := false;
   ShowMessage('Game Over: ' + AReason);
@@ -192,7 +269,7 @@ begin
   pbSpielFeld.Invalidate;
 end;
 
-function TForm1.GetFieldAtPosition(X, Y: integer): TFeldTyp;
+function TfrmMain.GetFieldAtPosition(X, Y: integer): TFeldTyp;
 begin
   if (X < 0) or (X > fFieldWidth - 1) or (Y < 0) or (Y > fFieldHeight - 1) then
     result := TFeldTyp.Begrenzung

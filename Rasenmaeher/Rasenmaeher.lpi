@@ -40,7 +40,7 @@
       <Unit1>
         <Filename Value="uspielfeld.pas"/>
         <IsPartOfProject Value="True"/>
-        <ComponentName Value="Form1"/>
+        <ComponentName Value="frmMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="uSpielfeld"/>
