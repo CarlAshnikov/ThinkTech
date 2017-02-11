@@ -241,10 +241,16 @@ begin
 end;
 
 procedure TfrmMain.tSpielRundeTimer(Sender: TObject);
+var
+  vRichtung: TRichtung;
 begin
+  vRichtung := fRoboter.Richtung;
   fAI.OnNextStep(fRoboter);
-  fRoboter.FahreEinenSchritt();
-  PruefeSpielregeln();
+  if fRoboter.Richtung = vRichtung then
+  begin
+    fRoboter.FahreEinenSchritt();
+    PruefeSpielregeln();
+  end;
   pbSpielFeld.Invalidate;
   UpdateInfo();
 end;
