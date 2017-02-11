@@ -13,7 +13,7 @@ const
 type
 
   TRichtung = (Hoch, Runter, Links, Rechts);
-  TFeldTyp = (RasenLang, RasenGemaeht, Begrenzung, Ladestation);
+  TFeldTyp = (RasenLang, RasenGemaeht, Begrenzung, Ladestation, Blumen);
   TFieldGetter = function (X, Y: integer): TFeldTyp of object;
 
   { TRoboter }

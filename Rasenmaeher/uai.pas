@@ -23,7 +23,7 @@ implementation
 
 procedure TRoboterAI.OnNextStep(ARobot: TRoboter);
 begin
-
+  ARobot.MotorAn := true;
 end;
 
 end.

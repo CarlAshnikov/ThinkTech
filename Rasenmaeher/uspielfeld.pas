@@ -29,6 +29,7 @@ type
     Button2: TButton;
     Button3: TButton;
     iLadeStation: TImage;
+    iBlumen: TImage;
     iRasenLang: TImage;
     iRasenKurz: TImage;
     iRoboterLinks: TImage;
@@ -39,6 +40,7 @@ type
     pRight: TPanel;
     pControl: TPanel;
     pbSpielFeld: TPaintBox;
+    RadioGroup1: TRadioGroup;
     tSpielRunde: TTimer;
     procedure actPauseExecute(Sender: TObject);
     procedure actPauseUpdate(Sender: TObject);
@@ -49,15 +51,21 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure pbSpielFeldPaint(Sender: TObject);
+    procedure RadioGroup1Click(Sender: TObject);
     procedure tSpielRundeTimer(Sender: TObject);
   private
     fRoboter: TRoboter;
     fAI: TRoboterAI;
     fFieldWidth, fFieldHeight: integer;
     fFields: array of array of TFeldTyp;
+    fIsRandomField, fHasFlowers, fRandomDirection: Boolean;
+    fDifficulty: integer;
     function AllFieldsAreMowed: Boolean;
+    function GetRandomField: TPoint;
+    function GetStationField: TPoint;
     procedure DoGameOver(const AReason: string);
     procedure DoGameWon;
+    procedure SetDifficulty(const ADiff: integer);
     function GetFieldAtPosition(X, Y: integer): TFeldTyp;
     function GetPicForField(const AFieldType: TFeldTyp): TBitmap;
     function GetPicForRobot(const ARobot: TRoboter): TBitmap;
@@ -65,7 +73,7 @@ type
     procedure ResetField;
     procedure UpdateInfo();
   public
-    { public declarations }
+
   end;
 
 var
@@ -104,6 +112,11 @@ begin
     end;
 end;
 
+procedure TfrmMain.RadioGroup1Click(Sender: TObject);
+begin
+  SetDifficulty(Radiogroup1.ItemIndex);
+end;
+
 function TfrmMain.GetPicForField(const AFieldType: TFeldTyp): TBitmap;
 begin
   case AFieldType of
@@ -113,6 +126,8 @@ begin
       result := iRasenKurz.Picture.Bitmap;
     Ladestation:
       result := iLadeStation.Picture.Bitmap;
+    Blumen:
+      result := iBlumen.Picture.Bitmap;
   else
     result := iRasenLang.Picture.Bitmap;
   end;
@@ -137,7 +152,8 @@ begin
   fAI := TRoboterAI.Create();
   fFieldWidth := 8;
   fFieldHeight := 6;
-  ResetField();
+  fDifficulty := -1;
+  SetDifficulty(0);
   UpdateInfo();
 end;
 
@@ -172,13 +188,36 @@ begin
 end;
 
 procedure TfrmMain.ResetField();
+var
+  X, Y: integer;
+  stationPos, FlowerPos: TPoint;
 begin
   if assigned(fRoboter) then
     fRoboter.Free;
-  fRoboter := TRoboter.Create(@GetFieldAtPosition, 0, 0);
-  fRoboter.Richtung := Runter;
+
+  stationPos := GetStationField();
+  fRoboter := TRoboter.Create(@GetFieldAtPosition, stationPos.X, stationPos.Y);
+  if fRandomDirection then
+    fRoboter.Richtung := TRichtung(Random(4))
+  else
+    fRoboter.Richtung := Runter;
+
+  if fHasFlowers then
+  begin
+    flowerPos := GetRandomField();
+    while (flowerPos.X = stationPos.X) and (flowerPos.Y = flowerPos.Y) do
+      flowerPos := GetRandomField();
+  end;
+
   Setlength(fFields, Width, Height);
-  fFields[0,0] := Ladestation;
+
+  for X := 0 to fFieldWidth - 1 do
+    for Y := 0 to fFieldHeight - 1 do
+      fFields[x, y] := RasenLang;
+  fFields[stationPos.X, stationPos.Y] := Ladestation;
+  if fHasFlowers then
+    fFields[flowerPos.X, flowerPos.Y] := Blumen;
+  pbSpielFeld.Invalidate;
 end;
 
 procedure TfrmMain.UpdateInfo;
@@ -223,6 +262,26 @@ begin
     end;
 end;
 
+function TfrmMain.GetStationField: TPoint;
+begin
+  if fIsRandomField then
+  begin
+    result := GetRandomField();
+  end
+  else
+  begin
+   result.x := 0;
+   result.Y := 0;
+  end;
+
+end;
+
+function TfrmMain.GetRandomField(): TPoint;
+begin
+  result.X := Random(fFieldWidth);
+  result.Y := Random(fFieldHeight);
+end;
+
 procedure TfrmMain.PruefeSpielregeln();
 begin
   if AllFieldsAreMowed() then
@@ -244,6 +303,8 @@ begin
       end;
     Begrenzung:
       DoGameOver('Außerhalb des Spielfeldes');
+    Blumen:
+      DoGameOver('Auf dem Blumenbeet!');
   end;
 end;
 
@@ -251,6 +312,34 @@ procedure TfrmMain.DoGameWon();
 begin
   tSpielRunde.Enabled := false;
   ShowMessage('Runde Gewonnen!');
+end;
+
+procedure TfrmMain.SetDifficulty(const ADiff: integer);
+begin
+  if fDifficulty = ADiff then
+    Exit();
+  fDifficulty := ADiff;
+  case fDifficulty of
+    0:
+      begin
+        fIsRandomField := false;
+        fHasFlowers := false;
+        fRandomDirection := false;
+      end;
+    1:
+      begin
+        fIsRandomField := true;
+        fHasFlowers := false;
+        fRandomDirection := true;
+      end;
+    2:
+      begin
+        fIsRandomField := true;
+        fHasFlowers := true;
+        fRandomDirection := true;
+      end;
+  end;
+  ResetField();
 end;
 
 procedure TfrmMain.DoGameOver(const AReason: string);
@@ -268,7 +357,6 @@ begin
   else
     result := fFields[X, Y];
 end;
-
 
 end.
 
