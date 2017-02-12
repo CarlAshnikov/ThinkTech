@@ -61,6 +61,7 @@ type
     fIsRandomField, fHasFlowers, fRandomDirection: Boolean;
     fDifficulty: integer;
     function AllFieldsAreMowed: Boolean;
+    procedure CheckWon;
     function GetRandomField: TPoint;
     function GetStationField: TPoint;
     procedure DoGameOver(const AReason: string);
@@ -236,6 +237,16 @@ begin
   fAI.Free;
 end;
 
+procedure TfrmMain.CheckWon();
+begin
+  if AllFieldsAreMowed() then
+  begin
+    DoGameWon();
+    ResetField();
+    exit();
+  end;
+end;
+
 procedure TfrmMain.tSpielRundeTimer(Sender: TObject);
 var
   vRichtung: TRichtung;
@@ -247,6 +258,7 @@ begin
     fRoboter.FahreEinenSchritt();
     PruefeSpielregeln();
   end;
+  CheckWon();
   pbSpielFeld.Invalidate;
   UpdateInfo();
 end;
@@ -286,12 +298,6 @@ end;
 
 procedure TfrmMain.PruefeSpielregeln();
 begin
-  if AllFieldsAreMowed() then
-  begin
-    DoGameWon();
-    exit();
-  end;
-
   Case GetFieldAtPosition(fRoboter.X, fRoboter.Y) of
     RasenLang:
       begin
