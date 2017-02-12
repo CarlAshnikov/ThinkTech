@@ -54,7 +54,7 @@ type
     procedure RadioGroup1Click(Sender: TObject);
     procedure tSpielRundeTimer(Sender: TObject);
   private
-    fRoboter: TRoboter;
+    fRoboter: IRobotExtended;
     fAI: TRoboterAI;
     fFieldWidth, fFieldHeight: integer;
     fFields: array of array of TFeldTyp;
@@ -68,7 +68,7 @@ type
     procedure SetDifficulty(const ADiff: integer);
     function GetFieldAtPosition(X, Y: integer): TFeldTyp;
     function GetPicForField(const AFieldType: TFeldTyp): TBitmap;
-    function GetPicForRobot(const ARobot: TRoboter): TBitmap;
+    function GetPicForRobot(const ARobot: IRobotExtended): TBitmap;
     procedure PruefeSpielregeln;
     procedure ResetField;
     procedure UpdateInfo();
@@ -133,7 +133,7 @@ begin
   end;
 end;
 
-function TfrmMain.GetPicForRobot(const ARobot: TRoboter): TBitmap;
+function TfrmMain.GetPicForRobot(const ARobot: IRobotExtended): TBitmap;
 begin
   case ARobot.Richtung of
     Hoch:
@@ -192,9 +192,6 @@ var
   X, Y: integer;
   stationPos, FlowerPos: TPoint;
 begin
-  if assigned(fRoboter) then
-    fRoboter.Free;
-
   stationPos := GetStationField();
   fRoboter := TRoboter.Create(@GetFieldAtPosition, stationPos.X, stationPos.Y);
   if fRandomDirection then
@@ -236,7 +233,6 @@ end;
 
 procedure TfrmMain.FormDestroy(Sender: TObject);
 begin
-  fRoboter.Free;
   fAI.Free;
 end;
 

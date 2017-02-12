@@ -16,9 +16,33 @@ type
   TFeldTyp = (RasenLang, RasenGemaeht, Begrenzung, Ladestation, Blumen);
   TFieldGetter = function (X, Y: integer): TFeldTyp of object;
 
-  { TRoboter }
+  IRobot = interface
+    ['{DA230DCA-43E8-4D5C-B151-FB366A858C73}']
+    function BenutzeSensor: TFeldTyp;
+    function GetMotor: Boolean;
+    function GetRichtung: TRichtung;
+    procedure SetMotor(AValue: Boolean);
+    procedure SetRichtung(AValue: TRichtung);
+    property Richtung: TRichtung read GetRichtung write SetRichtung;
+    property MotorAn: Boolean read GetMotor write SetMotor;
+  end;
 
-  TRoboter = class(TObject)
+  IRobotExtended = interface(IRobot)
+    ['{E20347A0-F605-4AD9-A0EB-704A0F055E81}']
+    function GetX: integer;
+    function GetY: integer;
+    function GetEnergie: integer;
+    function GetSensorFeld: TPoint;
+    procedure FahreEinenSchritt();
+    property Y: integer read GetY;
+    property X: integer read GetX;
+    property SensorFeld: TPoint read GetSensorFeld;
+    property Energie: integer read GetEnergie;
+  end;
+
+
+  { TRoboter }
+  TRoboter = class(TInterfacedObject, IRobot, IRobotExtended)
   private
     fMotor: Boolean;
     fRichtung: TRichtung;
@@ -26,17 +50,24 @@ type
     fY: integer;
     fFieldGetter: TFieldGetter;
     fEnergie: integer;
+    function GetEnergie: integer;
+    function GetMotor: Boolean;
+    function GetRichtung: TRichtung;
     function GetSensorFeld: TPoint;
+    function GetX: integer;
+    function GetY: integer;
+    procedure SetMotor(AValue: Boolean);
+    procedure SetRichtung(AValue: TRichtung);
   public
     constructor Create(const AFieldGetter: TFieldGetter; const StartX, StartY: integer);
     function BenutzeSensor: TFeldTyp;
     procedure FahreEinenSchritt();
-    property Richtung: TRichtung read fRichtung write fRichtung;
-    property MotorAn: Boolean read fMotor write fMotor;
-    property Y: integer read fY;
-    property X: integer read fX;
+    property Richtung: TRichtung read GetRichtung write SetRichtung;
+    property MotorAn: Boolean read GetMotor write SetMotor;
+    property Y: integer read GetY;
+    property X: integer read GetX;
     property SensorFeld: TPoint read GetSensorFeld;
-    property Energie: integer read fEnergie;
+    property Energie: integer read GetEnergie;
   end;
 
 implementation
@@ -58,6 +89,41 @@ begin
       result.x := result.x + 1;
   end;
 
+end;
+
+function TRoboter.GetX: integer;
+begin
+  result := fX;
+end;
+
+function TRoboter.GetY: integer;
+begin
+  result := fY;
+end;
+
+function TRoboter.GetMotor: Boolean;
+begin
+  result := fMotor;
+end;
+
+function TRoboter.GetRichtung: TRichtung;
+begin
+  result := fRichtung;
+end;
+
+function TRoboter.GetEnergie: integer;
+begin
+  result := fEnergie;
+end;
+
+procedure TRoboter.SetMotor(AValue: Boolean);
+begin
+  fMotor := AValue;
+end;
+
+procedure TRoboter.SetRichtung(AValue: TRichtung);
+begin
+  fRichtung := AValue;
 end;
 
 constructor TRoboter.Create(const AFieldGetter: TFieldGetter; const StartX, StartY: integer);

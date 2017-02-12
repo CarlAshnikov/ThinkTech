@@ -71,4 +71,46 @@ Gib den Text zurück der beim vorherigen Aufruf der Funktion übergeben wurde. Gib
 \subsection{Sortiere die Liste}
 Sortiere die Zahlen im übergebenen Array von klein nach groß. Ein einfacher Sortieralgorithmus ist Bubblesort informiere dich dazu und setze den Algorithmus um. Dieser Algorithmus muss mehrfach über die zu sortierenden Daten laufen. Was ist nach dem ersten Durchlauf passiert?
 
+\pagebreak
+
+\section{Zustandsdiagramme und Roboter}
+
+\subsection{Zustandsdiagramm}
+
+\subsubsection{Beispiel Spülung}
+
+Mit einem Zustandsdiagramm kann man die Zustände eines Objektes oder Systems abbilden. Mit den Rechtecken werden die Zustände abgebildet in denen sich ein System befindet. An den Pfeile stehen die Ereignisse die auftreten und einen Wechsel des Zustandes des Systems verursachen. Außerdem gibt es Punkte die den Start und die Beendigung markieren.
+
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.40\textwidth]{pictures/BeispielSpuelung.png}
+	\label{fig:BeispielSpuelung}
+\end{figure}
+
+Im Beispielbild ist das Diagramm einer Klospülung abgebildet. Zu Begin ist das System im Zustand bereit. Wird dann die Taste betätigt wird damit begonnen den Wasserbehälter zu entleeren. Wenn der Behälter leer ist, wird mit dem Füllen des Behälters begonnen. Wenn dieser komplett befüllt ist, befindet sich das System wieder im Bereit Zustand und kann eine weitere Spülung ausführen.
+
+\subsubsection{Übungsaufgabe Kaffeeautomat}
+
+Entwerfe das Zustandsdiagramm für einen Kaffeeautomaten. Dieser befindet sich zunächst im Bereit-Zustand. Danach wird mit dem Startknopf die Zubereitung gestartet. Dazu werden zuerst die Bohnen gemahlen. Ist das abgeschlossen wird das Pulver gepresst. Nach Beendingung dessen wird damit begonnen das Wasser durch das Pulver zu pressen. Das passiert solange bis die benötigte Wassermenge erreicht ist oder der Stopknopf gedrückt wird. Danach wird das benutzte Pulver in den Abfallbehälter befördert. Ist das abgeschlossen befindet sich der Automat wieder im Bereit-Zustand.
+
+\subsection{Mähroboter}
+
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=1.00\textwidth]{pictures/Oberflaeche.PNG}
+	\label{fig:Oberfläche}
+\end{figure}
+
+Implementiere die künstliche Intelligenz eines Mähroboters der den Rasen auf dem Spielfeld mähen soll. Im Verzeichnis Rasenmaeher ist das Projekt Rasenmaeher. Wenn man das Projekt startet sieht man zunächst die Oberfläche \ref{fig:Oberfläche} mit dem Rasen und dem Roboter. Außerdem hat man rechts einige Informationen zum Roboter. Unten sind Buttons um den Spielverlauf zu steuern. Man kann den Roboter automatisch laufen lassen oder einzelne Schritte ausführen. 
+
+Der Roboter darf nicht außerhalb des Bereichs fahren. Außerdem darf auf einem bereits gemähten Feld nicht erneut gemäht werden, damit der Rasen nicht kaputt geht. Außerdem darf das Blumenbeet auch nicht befahren werden. 
+
+Rechts unten kann man die Schwieriegkeit einstellen. Auf leicht startet der Roboter immer oben links. Auf Mittel startet der Roboter an einer zufälligen Position und mit einer zufälligen Richtung. Auf schwer gibt es zusätzlich ein Blumenbeet auf das man nicht fahren darf.
+
+In der Unit uAI soll das Verhalten des Roboters beeinflusst werden. Vor jedem Schritt wird die Funktion on NextStep aufgerufen und man bekommt den Roboter als Übergabeparameter um seine Richtung zu beeinflussen (property Richtung) und den Motor zu starten (property MotorAn). Außerdem kann man mit der funktion BenutzeSensor den Typ des Feldes herausfinden, das sich vor dem Roboter befindet. 
+
+Das Spiel ist dann gewonnen, wenn alle Felder gemäht wurden.
+
+Wenn das Spiel gewonnen wurde, entwirf das Zustandsdiagramm für das Verhalten des Roboters.
+
 \end{document}

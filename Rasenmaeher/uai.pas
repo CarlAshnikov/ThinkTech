@@ -14,14 +14,14 @@ type
   { TRoboterAI }
 
   TRoboterAI = class(TObject)
-    procedure OnNextStep(ARobot: TRoboter);
+    procedure OnNextStep(ARobot: IRobot);
   end;
 
 implementation
 
 { TRoboterAI }
 
-procedure TRoboterAI.OnNextStep(ARobot: TRoboter);
+procedure TRoboterAI.OnNextStep(ARobot: IRobot);
 begin
 
 end;
