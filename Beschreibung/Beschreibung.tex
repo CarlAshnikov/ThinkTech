@@ -113,4 +113,27 @@ Das Spiel ist dann gewonnen, wenn alle Felder gemäht wurden.
 
 Wenn das Spiel gewonnen wurde, entwirf das Zustandsdiagramm für das Verhalten des Roboters.
 
+\section{Übungen Oberfläche}
+
+Für die nachfolgenden Aufgaben lege im Lazarus unter Datei Neu Anwendung eine neue Anwendung an und speichere sie in einem Ordner. Alle Oberflächenelemente einer Aufgabe sollen zusammen in einer Groupbox sein die den Namen der Aufgabe bekommt (zu finden unter Standard). Die Aktionen werden meistens über das OnClick Ereignis der entsprechenden Buttons ausgeführt. Wichtig ist es die Namen der Oberflächenelemente zu kennen nachdem man sie hinzugefügt hat, damit man später Aktionen mit ihnen durchführen kann.
+
+\subsection{Blinky}
+
+Ziel ist es ein Shape blinken zu lassen.
+Hierfür benötigen wir einen Shape (unter Additional), einen Button (Standard) und einen Timer (System). Ein Timer wiederholt die Prozedur die als OnTimer zugeordnet sind mit dem im Intervall eingestellten Abstand. Das kann man mit Doppelklick anlegen oder unter Ereignisse OnTimer. Mit der Eigenschaft Enabled kann man den Timer starten oder stoppen. Damit der Shape blinkt soll ihm abwechselnd die Farbe Blau und Rot zugewiesen werden. Das geschieht über die Eigennhscaft Color. Die Farben sind Konstanten Ihren Namen kann man im Objektinspektor herausfinden. Dazu muss zu beginn die Farbe des Shapes auf Blau sein (im Objektinspektor einstellen). Mit dem zugehörigen Button soll der Timer gestartet oder gestoppt (Enabled auf true oder false) werden können um das Blinken an- und auszuschalten. Dieser soll die Caption Start oder Stop bekommen je nachdem ob der Timer an oder aus ist.
+
+\subsection{Text}
+
+Für diese Aufgabe wollen wir Text wollen wir Text in ein Memo laden und ihn wieder abspeichern. Sobald etwas im Memo steht kann man es beliebig editieren. 
+
+Dazu benötigen wir zuerst ein Memo, ein paar Buttons und Dialoge. Um eine Datei zu laden benötigen wir zunächst einen OpenDialog (unter Dialoge) und einen Button "`Laden"' um ihn aufzurufen. Einen Dialog kann man mit Execute aufrufen. Den Ausgewählten Dateinamen bekommt man mit der Eigenschaft FileName. Den Inhalt des Memos zu bearbeiten greifen wir auf Memo.Lines zu was vom Typ Stringliste ist. Mit LoadFromFile kann man diese direkt aus einer Datei laden.
+
+Zum Speichern benötigen wir einen Button "`Speichern"' und einen SaveDialog. Diesen rufen wir wieder mit Execute auf. Den Inhalt des Memos können wir SaveToFile in den ausgewählten Dateinamen speichern.
+
+Außerdem wollen wir den Text aus einem Edit an den Text im Memo anhängen. Dazu benötigen wir einen Button "`Hinzufuegen"' und ein Edit. Mit Memo.Lines.Add kann der Edit.Text angefügt werden.
+
+\subsection{Haus vom Nikolaus}
+
+In einer PaintBox (unter Additional) soll das Haus vom Nikolaus gezeichnet werden. Dazu muss das Ereignis OnPaint der Paintbox implementiert werden. Mit PaintBox.Canvas.MoveTo bewegt man den Stift und mit LineTo zieht man eine Linie von der letzten Position zur angegebenen Position. Z.b. MoveTo(10,10) und anschließend LineTo(20,20) zieht eine Linie vom Pixel 10,10 nach 20,20. Anschließend kann man weitere Linien ziehen(LineTo) oder den Stift ohne Linie bewegen(MoveTo). Das Haus soll 75 Pixel hoch sein und 50 Breit. Die Paintbox muss also entsprechend größer sein als das.
+
 \end{document}
