@@ -136,4 +136,32 @@ Außerdem wollen wir den Text aus einem Edit an den Text im Memo anhängen. Dazu b
 
 In einer PaintBox (unter Additional) soll das Haus vom Nikolaus gezeichnet werden. Dazu muss das Ereignis OnPaint der Paintbox implementiert werden. Mit PaintBox.Canvas.MoveTo bewegt man den Stift und mit LineTo zieht man eine Linie von der letzten Position zur angegebenen Position. Z.b. MoveTo(10,10) und anschließend LineTo(20,20) zieht eine Linie vom Pixel 10,10 nach 20,20. Anschließend kann man weitere Linien ziehen(LineTo) oder den Stift ohne Linie bewegen(MoveTo). Das Haus soll 75 Pixel hoch sein und 50 Breit. Die Paintbox muss also entsprechend größer sein als das.
 
+\pagebreak
+
+\section{Sequenzdiagramme}
+
+Mit Seqenzdiagrammen kann man die Interaktion zwischen verschiedenen Instanzen beschreiben und den zeitlichen Ablauf von verschiedenen Nachrichten beschreiben. Außerdem kann man damit Reaktionen auf Ereignisse/Nachrichten abbilden. Eine Instanz wird durch ein Rechteck beschrieben, von der aus eine Lebenslinie senkrecht verläuft. Nachrichten werden mit Pfeile zwischen den Linien abgebildet. Prozesse die von den INstanzen ausgeführt werden, werden durch Balken an ihren Linien dargestellt. 
+
+\subsection{Beispiel Restaurant}
+
+Im Bild \ref{fig:BeispielRestaurant} ist der Ablauf eines Besuchs im Restaurant abgebildet. Der Kunde bstellt zunächst Die Getränke beim Kellner. Dieser befüllt dann an der Bar die Gläser und sobald der Vorgang abgeschlossen ist, bringt er sie dem Kunden. Etwas später bestellt der Kunde das Essen beim Kellner. Dieser leitet die Bestellung an die Küche weiter, welche daraufhin beginnt, das Essen zuzubereiten. Wenn das Essen fertig ist, meldet sich die Küche beim Kellner. Dieser kann dann das Essen ausliefern. Später bestellt der Kunde beim Kellner die Rechnung dieser erstellt die Rechnung und kassiert dann beim Kunde ab.
+
+\begin{figure}[htb]
+	\centering
+		\includegraphics[width=0.75\textwidth]{pictures/BeispielRestaurant.png}
+	\label{fig:BeispielRestaurant}
+	\caption{Beispiel Restaurant}
+\end{figure}
+
+\textbf{Aufgaben:}
+\begin{enumerate}
+	\item Erweitere das Beispiel so, dass der Kellner jede Bestellung in einer Kasse (neue Instanz) einträgt und die Rechnung zum Schluss ausdrucken lässt.
+	\item Erweitere das Beispiel um eine Dessertbestellung vor dem Bezahlen (muss ebenfalls in der Küche zubereitet werden)
+\end{enumerate}
+
+\subsection{Aufgabe Support}
+
+Erzeuge das Sequenzdiagramm zu einem Supportanruf. Ein Kunde ruft bei der Hotline an und schildert ein Problem mit einem Gerät. Diese rät ihm zunächst das Gerät neu zu starten. Der Kunde meldet, dass es keine Verbesserung gibt. Die Hotline empfiehlt daraufhin das Gerät auf Werkseinstellugnen zurückzusetzen. Da das auch nicht hilft verbindet die Hotline den Kunde mit der Fachabteilung. Daraufhin bespricht der Kunde den Fehler mit der Fachabteilung. Diese meldet, dass das Gerät zur Untersuchung eingeschickt werden muss. Der Kunde übergibt das Gerät an einen Paketdienst, dieser liefert es an die Fachabteilung aus. Nachdem das Gerät repariert wurde, wird es von der Fachabteilung an den Paketdienst übergeben und der Kunde erhält das reparierte Gerät zurück.
+
+
 \end{document}
