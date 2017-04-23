@@ -135,7 +135,6 @@ Außerdem wollen wir den Text aus einem Edit an den Text im Memo anhängen. Dazu b
 \subsection{Haus vom Nikolaus}
 
 In einer PaintBox (unter Additional) soll das Haus vom Nikolaus gezeichnet werden. Dazu muss das Ereignis OnPaint der Paintbox implementiert werden. Mit PaintBox.Canvas.MoveTo bewegt man den Stift und mit LineTo zieht man eine Linie von der letzten Position zur angegebenen Position. Z.b. MoveTo(10,10) und anschließend LineTo(20,20) zieht eine Linie vom Pixel 10,10 nach 20,20. Anschließend kann man weitere Linien ziehen(LineTo) oder den Stift ohne Linie bewegen(MoveTo). Das Haus soll 75 Pixel hoch sein und 50 Breit. Die Paintbox muss also entsprechend größer sein als das.
-
 \pagebreak
 
 \section{Sequenzdiagramme}
@@ -163,5 +162,29 @@ Im Bild \ref{fig:BeispielRestaurant} ist der Ablauf eines Besuchs im Restaurant 
 
 Erzeuge das Sequenzdiagramm zu einem Supportanruf. Ein Kunde ruft bei der Hotline an und schildert ein Problem mit einem Gerät. Diese rät ihm zunächst das Gerät neu zu starten. Der Kunde meldet, dass es keine Verbesserung gibt. Die Hotline empfiehlt daraufhin das Gerät auf Werkseinstellugnen zurückzusetzen. Da das auch nicht hilft verbindet die Hotline den Kunde mit der Fachabteilung. Daraufhin bespricht der Kunde den Fehler mit der Fachabteilung. Diese meldet, dass das Gerät zur Untersuchung eingeschickt werden muss. Der Kunde übergibt das Gerät an einen Paketdienst, dieser liefert es an die Fachabteilung aus. Nachdem das Gerät repariert wurde, wird es von der Fachabteilung an den Paketdienst übergeben und der Kunde erhält das reparierte Gerät zurück.
 
+\pagebreak
+
+\section{Umsetzung Projekt}
+
+Folgende Schritte sollten für die Umsetzung des Projektes gemacht werden:
+
+\begin{itemize}
+	\item Entwicklung einer Funktion die die Nachrichten aus dem Netzwerk auseinander nimmt und auf korrekte Zusammensetzung prüft.
+	\item Auf der Oberfläche soll eine Möglichkeit integriert werden, um alle Befehle zunächst lokal zu Testen.
+	\item Für jede mögliche empfangene Nachricht soll eine Prozedur geschrieben werden, die nach dem Empfang der Nachricht aufgerufen werden kann. 
+	\item In jeder der Prozeduren sollen die empfangenen Parameter auf Korrektheit geprüft werden.
+	\item Wenn die Parameter korrekt sind sollen die aktuellen Wert in entsprechenden Feldern gespeichert werden. 
+	
+	\begin{itemize}
+		\item verbunden/nicht verbunden
+		\item ID
+		\item Maschinentyp
+		\item aktueller Status
+	\end{itemize}
+		
+	\item Danach sollen für alle verfügbaren Informationen entsprechende Anzeigen hinzugefügt werden.
+	\item Die Anzeigen sollen dann in den entsprechenden Prozeduren aktualisiert werden, wenn sich ein Wert ändert (z.B. der aktuelle Status)
+	
+\end{itemize}
 
 \end{document}
