@@ -154,6 +154,7 @@ begin
   fDifficulty := -1;
   SetDifficulty(0);
   UpdateInfo();
+  Randomize();
 end;
 
 procedure TfrmMain.actPlayExecute(Sender: TObject);
