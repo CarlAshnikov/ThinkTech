@@ -249,14 +249,20 @@ end;
 procedure TfrmMain.tSpielRundeTimer(Sender: TObject);
 var
   vRichtung: TRichtung;
+  vMotorAn: Boolean;
 begin
   vRichtung := fRoboter.Richtung;
+  vMotorAn := fRoboter.MotorAn;
   fAI.OnNextStep(fRoboter);
   if fRoboter.Richtung = vRichtung then
   begin
     fRoboter.FahreEinenSchritt();
     PruefeSpielregeln();
-  end;
+  end
+  else
+  if vMotorAn <> fRoboter.MotorAn then
+    PruefeSpielregeln();
+
   CheckWon();
   pbSpielFeld.Invalidate;
   UpdateInfo();
