@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 362
+  Left = 2611
   Height = 525
-  Top = 286
+  Top = 233
   Width = 837
   Caption = 'MyMowboter'
   ClientHeight = 525
@@ -36019,7 +36019,7 @@ object frmMain: TfrmMain
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 80
+      ClientHeight = 85
       ClientWidth = 164
       ItemIndex = 0
       Items.Strings = (
